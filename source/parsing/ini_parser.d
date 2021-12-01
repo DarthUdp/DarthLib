@@ -5,11 +5,18 @@ import std.algorithm;
 import std.array;
 
 /// Parse a list of key value pairs from a file in the format (aka ini file):
-/// ---
+/// ```ini
 /// # comment
 /// some_key = some_value
-/// ---
-/// Comment, key value delimiter and space stripping can be configured with constructor parameters
+/// # also supports sections, sections cna be named anything
+/// [some_section]
+/// # sections namespace keys to access the follwing key access the key "some_section.some_key"
+/// some_key = some value
+/// ```
+/// Comment, key value delimiter and space stripping can be configured with
+/// constructor parameters this parser will not accept duplicate keys by default
+/// to allow duplicate keys pass allowOverride to the constructor, it will enforce
+/// the last instance of a key is the final value for that key.
 class IniParser
 {
 	string[string] items;
@@ -17,6 +24,7 @@ class IniParser
 		string inBuffer,
 		bool paseSections = false,
 		bool stripSpaces = true,
+		bool allowOverride = false,
 		string commentChar = "#",
 		string keyValueSep = "="
 	)
@@ -54,7 +62,7 @@ class IniParser
 			if (auto split = line.findSplit(keyValueSep))
 			{
 				string key = currentSection ~ strip(split[0]);
-				if (key in items)
+				if (key in items && !allowOverride)
 					throw new Exception(format("key %s already seen", line));
 				// split any
 				if (stripSpaces)

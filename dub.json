@@ -1,0 +1,9 @@
+{
+	"authors": [
+		"mxavier"
+	],
+	"copyright": "Copyright (c) 2021, Matheus Xavier, All rights reserved.",
+	"description": "Common Utilities library",
+	"license": "BSD 3-Clause",
+	"name": "darthlib"
+}

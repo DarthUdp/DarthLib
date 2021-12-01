@@ -1,0 +1,15 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/darthlib
+darthlib.so
+darthlib.dylib
+darthlib.dll
+darthlib.a
+darthlib.lib
+darthlib-test-*
+*.exe
+*.o
+*.obj
+*.lst
